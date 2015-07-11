@@ -5,7 +5,7 @@ local getter = function(info) return addon.db.profile[ info[#info] ] end
 
 local defaults = {
     profile = {
-        say = false,
+        whisper = false,
         guild = true,
         party = false,
         raid = false,
@@ -50,7 +50,8 @@ local kanamap = {
     ["shi"] = "し", ["sho"] = "しょ",   ["shu"] = "しゅ",
     ["sya"] = "しゃ",   ["syo"] = "しょ",   ["syu"] = "しゅ",
     ["tsu"] = "つ",
-    ["tya"] = "ちゃ",   ["tye"] = "ちぇ",   ["tyo"] = "ちょ",   ["tyu"] = "ちゅ",   
+    ["tya"] = "ちゃ",   ["tye"] = "ちぇ",   ["tyo"] = "ちょ",   ["tyu"] = "ちゅ",
+    
     ["ba"] = "ば",  ["be"] = "べ",  ["bi"] = "び",  ["bo"] = "ぼ",  ["bu"] = "ぶ",
     ["da"] = "だ",  ["de"] = "で",  ["di"] = "でぃ",    ["do"] = "ど",  ["du"] = "どぅ",
     ["fu"] = "ふ",
@@ -68,12 +69,14 @@ local kanamap = {
     ["wa"] = "わ",  ["wo"] = "を",
     ["ya"] = "や",  ["yo"] = "よ",  ["yu"] = "ゆ",
     ["za"] = "ざ",  ["ze"] = "ぜ",  ["zi"] = "じ",  ["zo"] = "ぞ",  ["zu"] = "ず",
+    
     ["a"] = "あ",   ["e"] = "え",   ["i"] = "い",   ["o"] = "お",   ["u"] = "う",
 }
 
+local template = "%s (%s)"
 local function kanaConvert(msg)
     if not string.find(msg, "^[%a%d%s%p]+$") then
-        return msg -- includes non ascii (maybe kana. skip
+        return msg -- includes non ascii. maybe kana. just skip
     end
     
     local kana = string.lower(msg)
@@ -86,29 +89,46 @@ local function kanaConvert(msg)
     if msg == kana then
         return msg -- something failed
     else
-        return msg .. " (" .. kana .. ")"
+        return string.format(template, msg, kana)
     end
 end
 
-ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", function(self, event, msg, ...)
-    if addon.db.profile.say then
+-- hook whisper
+ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", function(self, event, msg, ...)
+    if addon.db.profile.whisper then
         return false, kanaConvert(msg), ...
     end
 end)
 
+
+-- hook guild
 ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", function(self, event, msg, ...)
     if addon.db.profile.guild then
         return false, kanaConvert(msg), ...
     end
 end)
 
+
+-- hook party
 ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", function(self, event, msg, ...)
     if addon.db.profile.party then
         return false, kanaConvert(msg), ...
     end
 end)
 
+ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", function(self, event, msg, ...)
+    if addon.db.profile.party then
+        return false, kanaConvert(msg), ...
+    end
+end)
+
+-- hook raid
 ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", function(self, event, msg, ...)
+    if addon.db.profile.raid then
+        return false, kanaConvert(msg), ...
+    end
+end)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", function(self, event, msg, ...)
     if addon.db.profile.raid then
         return false, kanaConvert(msg), ...
     end
