@@ -8,7 +8,7 @@ local defaults = {
         whisper = false,
         guild = true,
         party = false,
-        raid = false,
+        instance = false,
     }
 }
 
@@ -22,7 +22,7 @@ for k, v in pairs(defaults.profile) do
     options.args[k] = {
         type = "toggle",
         name = "Enable [" .. label .. "] chat message.",
-        desc = "check suru to [" .. label .. "] chat de yuu kou desu.",
+        desc = "check suru to, [" .. label .. "] chat de yuu kou.",
         width = "full",
         set = setter,
         get = getter,
@@ -76,7 +76,7 @@ local kanamap = {
 local template = "%s (%s)"
 local function kanaConvert(msg)
     if not string.find(msg, "^[%a%d%s%p]+$") then
-        return msg -- includes non ascii. maybe kana. just skip
+        return msg -- already includes non ascii. maybe kana. just skip
     end
     
     local kana = string.lower(msg)
@@ -86,8 +86,16 @@ local function kanaConvert(msg)
     kana = string.gsub(kana, "([aeiou])", function(w) return kanamap[w] end)
     kana = string.gsub(kana, "nn?", "ん")
     
+    local function countAlphabet(string)
+        local c = 0
+        for i in string.gmatch(string, "(%a)") do c = c + 1 end
+        return c
+    end
+    
     if msg == kana then
         return msg -- something failed
+    elseif ( countAlphabet(kana) / countAlphabet(msg) ) > 0.2 then
+        return msg -- something failed. maybe not romaji. TODO more smart romaji check
     else
         return string.format(template, msg, kana)
     end
@@ -100,7 +108,6 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", function(self, event, msg, .
     end
 end)
 
-
 -- hook guild
 ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", function(self, event, msg, ...)
     if addon.db.profile.guild then
@@ -108,28 +115,22 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", function(self, event, msg, ...
     end
 end)
 
-
 -- hook party
-ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", function(self, event, msg, ...)
+local function hookParty(self, event, msg, ...)
     if addon.db.profile.party then
         return false, kanaConvert(msg), ...
     end
-end)
+end
+ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", hookParty)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", hookParty)
 
-ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", function(self, event, msg, ...)
-    if addon.db.profile.party then
+-- hook raid, instance
+local function hookInstance(self, event, msg, ...)
+    if addon.db.profile.instance then
         return false, kanaConvert(msg), ...
     end
-end)
-
--- hook raid
-ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", function(self, event, msg, ...)
-    if addon.db.profile.raid then
-        return false, kanaConvert(msg), ...
-    end
-end)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", function(self, event, msg, ...)
-    if addon.db.profile.raid then
-        return false, kanaConvert(msg), ...
-    end
-end)
+end
+ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", hookInstance)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", hookInstance)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT", hookInstance)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT_LEADER", hookInstance)
