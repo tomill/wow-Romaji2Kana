@@ -30,10 +30,30 @@ for k, v in pairs(defaults.profile) do
 end
 
 function addon:OnInitialize()
+    self.enabled = true
     self.db = LibStub("AceDB-3.0"):New(self.name .. "DB", defaults)
     LibStub("AceConfig-3.0"):RegisterOptionsTable(self.name, options)
     LibStub("AceConfigDialog-3.0"):AddToBlizOptions(self.name)
 end
+
+
+SLASH_ROMAJI2KANA1 = "/romakana"
+SLASH_ROMAJI2KANA2 = "/romakana"
+SlashCmdList["ROMAJI2KANA"] = function (opt)
+    opt = string.lower(opt)
+
+    if opt == "on" then
+        addon.enabled = true
+        DEFAULT_CHAT_FRAME:AddMessage("Romaji2Kana: enabled", 1, 1, 1)
+    elseif opt == "off" then
+        addon.enabled = false
+        DEFAULT_CHAT_FRAME:AddMessage("Romaji2Kana: temporary disabled", 1, 1, 1)
+    else
+        DEFAULT_CHAT_FRAME:AddMessage("/romakana off - temporary disabled Romaji2Kana", 1, 1, 1)
+        DEFAULT_CHAT_FRAME:AddMessage("/romakana on - enable Romaji2Kana", 1, 1, 1)
+    end
+end
+
 
 local kanamap = {
     ["bya"] = "びゃ",   ["byo"] = "びょ",   ["byu"] = "びゅ",
@@ -103,21 +123,21 @@ end
 
 -- hook whisper
 ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", function(self, event, msg, ...)
-    if addon.db.profile.whisper then
+    if addon.enabled and addon.db.profile.whisper then
         return false, kanaConvert(msg), ...
     end
 end)
 
 -- hook guild
 ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", function(self, event, msg, ...)
-    if addon.db.profile.guild then
+    if addon.enabled and addon.db.profile.guild then
         return false, kanaConvert(msg), ...
     end
 end)
 
 -- hook party
 local function hookParty(self, event, msg, ...)
-    if addon.db.profile.party then
+    if addon.enabled and addon.db.profile.party then
         return false, kanaConvert(msg), ...
     end
 end
@@ -126,7 +146,7 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", hookParty)
 
 -- hook raid, instance
 local function hookInstance(self, event, msg, ...)
-    if addon.db.profile.instance then
+    if addon.enabled and addon.db.profile.instance then
         return false, kanaConvert(msg), ...
     end
 end
