@@ -9,6 +9,8 @@ This addon is for Japanese chat messaging. Show hiragana text converted from rom
       to
     Nomill: konnichiwa (こんにちわ)
 
+---
+
 - This addon requires Unicode font to show Japanese.
 - This addon does not touch any output message.
 - You can set enable/disable chat group type in Menu > Interface > Addon > Romaji2Kana.
