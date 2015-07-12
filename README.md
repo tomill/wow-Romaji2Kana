@@ -3,6 +3,12 @@ Chat message translator: Japanese Romaji to Hiragana
 
 ---
 
+released: Curse からダウンロードできます。
+
+<http://www.curse.com/addons/wow/romaji2kana>
+
+---
+
 This addon is for Japanese chat messaging. Show hiragana text converted from romaji.
 
     Nomill: konnichiwa
