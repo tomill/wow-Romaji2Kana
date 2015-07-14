@@ -26,5 +26,5 @@ This addon is for Japanese chat messaging. Show hiragana text converted from rom
 
 You can message/help me anytime:
 
-- <http://wowbokai.wordpress.com/> <- nihongo setumei page coming soon
+- [nihongo setumei page](https://wowbokai.wordpress.com/2015/07/12/%E3%83%AD%E3%83%BC%E3%83%9E%E5%AD%97%E3%83%81%E3%83%A3%E3%83%83%E3%83%88%E3%82%92%E8%87%AA%E5%8B%95%E3%81%A7%E3%81%B2%E3%82%89%E3%81%8C%E3%81%AA%E5%A4%89%E6%8F%9B%E3%81%99%E3%82%8Baddon/)
 - <http://twitter.com/tomita>
