@@ -520,7 +520,7 @@ local function convertWord(original)
         return original
     end
     
-    if string.match(word, "^mo+") then
+    if string.match(word, "^mo+$") then
         return original
     end
     
