@@ -585,6 +585,7 @@ local function hookMessage(self, event, msg, ...)
         (event == "CHAT_MSG_RAID" and addon.db.profile.instance) or
         (event == "CHAT_MSG_RAID_LEADER" and addon.db.profile.instance) or
         (event == "CHAT_MSG_INSTANCE_CHAT" and addon.db.profile.instance) or
+        (event == "CHAT_MSG_RAID_WARNING" and addon.db.profile.instance) or
         (event == "CHAT_MSG_INSTANCE_CHAT_LEADER" and addon.db.profile.instance) then
         return false, convertMessage(msg), ...
     end
@@ -596,5 +597,6 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", hookMessage)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", hookMessage)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", hookMessage)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", hookMessage)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_WARNING", hookMessage)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT", hookMessage)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT_LEADER", hookMessage)
