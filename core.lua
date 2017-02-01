@@ -186,6 +186,7 @@ local stopwords = {
     ["digiman"] = 1,
     ["dimension"] = 1,
     ["dire"] = 1,
+    ["disease"] = 1,
     ["disengage"] = 1,
     ["doe"] = 1,
     ["doin"] = 1,
