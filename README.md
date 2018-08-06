@@ -24,6 +24,7 @@ Changes:
 
 1.8.0
 
-- update toc for 8.0.x
-- www support. try type this => `test desuwww`
-- just renamed "Romaji Translator" from "Romaji2kana".
+- update for 8.0.x
+- added `w` support. try type this => `test desuwww`
+- removed `moo` rule for Tauren (sorry). now `もお`.
+- renamed "Romaji Translator" from "Romaji2kana" :D

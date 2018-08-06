@@ -101,15 +101,19 @@ local function convertWord(original)
         return original
     end
     
-    if string.match(word, "^mo+$") then
-        return original
-    end
-    
     if ROMAJI2KANA_STOPWORDS[ string.gsub(word, "%A", "") ] then
         return original
     end
 
-    local word = string.gsub(word, "([bcdfghjkprstwyz])%1", "っ%1")
+    word = string.gsub(word, "(w+)$", function(w)
+        local www = ""
+        for i = 1, #w do
+            www = www .. "ｗ"
+        end
+        return www
+    end)
+
+    word = string.gsub(word, "([bcdfghjkprstwyz])%1", "っ%1")
     word = string.gsub(word, "([bcdghkmnprst][hsy][aeiou])", function(w) return kanamap[w] end)
     word = string.gsub(word, "([bdfghjkmnprstwyz][aeiou])", function(w) return kanamap[w] end)
     word = string.gsub(word, "([aeiou])", function(w) return kanamap[w] end)
