@@ -8,6 +8,7 @@ function addon:OnInitialize()
             guild = true,
             party = false,
             instance = false,
+            say = false,
         }
     }
 
@@ -22,8 +23,8 @@ function addon:OnInitialize()
         local label = k:gsub("^%l", string.upper)
         options.args[k] = {
             type = "toggle",
-            name = "Enable [" .. label .. "] chat message.",
-            desc = "check suru to, [" .. label .. "] chat de yuu kou.",
+            name = "Enable on [" .. label .. "] chat message.",
+            desc = "check suru to, [" .. label .. "] chat de ON desu.",
             width = "full",
             set = setter,
             get = getter,
@@ -45,16 +46,16 @@ SlashCmdList["ROMAJI2KANA"] = function (opt)
 
     if opt == "on" then
         addon.enabled = true
-        DEFAULT_CHAT_FRAME:AddMessage("Romaji2Kana: enabled", 1, 1, 1)
+        DEFAULT_CHAT_FRAME:AddMessage(addon.name .. ": enabled", 1, 1, 1)
     elseif opt == "off" then
         addon.enabled = false
-        DEFAULT_CHAT_FRAME:AddMessage("Romaji2Kana: temporary disabled", 1, 1, 1)
+        DEFAULT_CHAT_FRAME:AddMessage(addon.name .. ": temporary disabled", 1, 1, 1)
     else
-        DEFAULT_CHAT_FRAME:AddMessage("/romakana off - temporary disabled Romaji2Kana", 1, 1, 1)
-        DEFAULT_CHAT_FRAME:AddMessage("/romakana on - enable Romaji2Kana", 1, 1, 1)
+        DEFAULT_CHAT_FRAME:AddMessage(addon.name .. ": help", 1, 1, 1)
+        DEFAULT_CHAT_FRAME:AddMessage("/romakana off - disable in this login session", 1, 1, 1)
+        DEFAULT_CHAT_FRAME:AddMessage("/romakana on - enable in this login session", 1, 1, 1)
     end
 end
-
 
 local kanamap = {
     ["bya"] = "びゃ",   ["byo"] = "びょ",   ["byu"] = "びゅ",
@@ -548,7 +549,7 @@ local function convertMessage(msg)
         return msg -- already includes non ascii. maybe kana. just skip
     end
     
-    local res = nil
+    local res
     local count = { ["word"] = 0, ["kana"] = 0 }
     for word in string.gmatch(msg, "%S+") do
         local kana = convertWord(word)
@@ -574,13 +575,13 @@ local function convertMessage(msg)
     end
 end
 
-
 local function hookMessage(self, event, msg, ...)
     if not addon.enabled then
         return
     end
 
     if (event == "CHAT_MSG_WHISPER" and addon.db.profile.whisper) or
+        (event == "CHAT_MSG_SAY" and addon.db.profile.say) or
         (event == "CHAT_MSG_GUILD" and addon.db.profile.guild) or
         (event == "CHAT_MSG_PARTY" and addon.db.profile.party) or
         (event == "CHAT_MSG_PARTY_LEADER" and addon.db.profile.party) or
@@ -594,6 +595,7 @@ local function hookMessage(self, event, msg, ...)
 end
 
 ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", hookMessage)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", hookMessage)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", hookMessage)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", hookMessage)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", hookMessage)
