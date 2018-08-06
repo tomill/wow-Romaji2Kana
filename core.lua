@@ -1,4 +1,5 @@
-﻿local addon = LibStub("AceAddon-3.0"):NewAddon("Romaji2Kana")
+﻿-- "Romaji Translator" addon by tomill
+local addon = LibStub("AceAddon-3.0"):NewAddon("Romaji Translator")
 
 function addon:OnInitialize()
     local defaults = {
@@ -30,7 +31,7 @@ function addon:OnInitialize()
     end
     
     self.enabled = true
-    self.db = LibStub("AceDB-3.0"):New(self.name .. "DB", defaults)
+    self.db = LibStub("AceDB-3.0"):New("Romaji2KanaDB", defaults)
     
     LibStub("AceConfig-3.0"):RegisterOptionsTable(self.name, options)
     LibStub("AceConfigDialog-3.0"):AddToBlizOptions(self.name)
