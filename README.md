@@ -8,9 +8,9 @@ Translate chat message: Japanese Romaji to Hiragana
 
 This addon is for Japanese chat messaging. Show Hiragana text from Romaji.
 
-    [Nomill] konnichiwa
+    [Tomill] konnichiwa
       to
-    [Nomill] konnichiwa (こんにちわ)
+    [Tomill] konnichiwa (こんにちわ)
 
 - Requires Unicode font.
 - This addon don't touch outgoing message.
@@ -25,6 +25,7 @@ Changes:
 1.8.0
 
 - update for 8.0.x
-- added `w` support. try type this => `test desuwww`
+- skip the word beginning with uppercase. `Pandaria ha panda no shima` => `Pandaria は ぱんだ の しま`
+- added `w` support. try this => `ukeruwww`
 - removed `moo` rule for Tauren (sorry). now `もお`.
 - renamed "Romaji Translator" from "Romaji2kana" :D

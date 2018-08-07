@@ -95,12 +95,18 @@ local kanamap = {
 
 
 local function convertWord(original)
-    local word = string.lower(original)
+    local word = original
 
     if string.match(word, "^[(<%[].*[)>%]]$") then
         return original
     end
-    
+
+    if string.match(word, "^[A-Z]") then
+        return original
+    end
+
+    word = string.lower(word)
+
     if ROMAJI2KANA_STOPWORDS[ string.gsub(word, "%A", "") ] then
         return original
     end
@@ -122,7 +128,7 @@ local function convertWord(original)
     if string.match(word, "%a") then
         return original
     end
-    
+
     return word
 end
 
