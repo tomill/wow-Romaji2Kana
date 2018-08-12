@@ -101,7 +101,11 @@ local function convertWord(original)
         return original
     end
 
-    if string.match(word, "^[A-Z]") then
+    if string.match(word, "^[(][^)]+[)]:") then
+        return "" -- incognito line
+    end
+
+    if string.match(word, "^%A*%u") then
         return original
     end
 
