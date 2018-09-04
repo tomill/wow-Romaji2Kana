@@ -1,4 +1,4 @@
-﻿-- "Romaji Translator" addon by tomill
+-- "Romaji Translator" addon by tomill
 local addon = LibStub("AceAddon-3.0"):NewAddon("Romaji Translator")
 
 function addon:OnInitialize()
@@ -9,6 +9,8 @@ function addon:OnInitialize()
             party = false,
             instance = false,
             say = false,
+            bnet = false,
+            community = false,
         }
     }
 
@@ -173,6 +175,8 @@ local function hookMessage(self, event, msg, ...)
     end
 
     if (event == "CHAT_MSG_WHISPER" and addon.db.profile.whisper) or
+        (event == "CHAT_MSG_COMMUNITIES_CHANNEL" and addon.db.profile.community) or
+        (event == "CHAT_MSG_BN_WHISPER" and addon.db.profile.bnet) or
         (event == "CHAT_MSG_SAY" and addon.db.profile.say) or
         (event == "CHAT_MSG_GUILD" and addon.db.profile.guild) or
         (event == "CHAT_MSG_PARTY" and addon.db.profile.party) or
@@ -187,6 +191,8 @@ local function hookMessage(self, event, msg, ...)
 end
 
 ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", hookMessage)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_COMMUNITIES_CHANNEL", hookMessage)
+ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER", hookMessage)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", hookMessage)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", hookMessage)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", hookMessage)
