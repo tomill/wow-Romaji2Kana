@@ -1,11 +1,10 @@
-## Interface: 80200
-## Version: @project-version@
-## Title: Romaji Translator
-## Notes: Translate chat message: Japanese Romaji to Hiragana
+## Interface: 11302
+## Version: 1.8.3-classic
+## Title: Romaji Translator|cFFFFFFFF Classic|r
+## Notes: Translate chat message: Japanese Romaji to Hiragana, Classic
 ## Author: Tomill
 ## SavedVariables: Romaji2KanaDB
 
-#@no-lib-strip@
 Libs\LibStub\LibStub.lua
 Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
 Libs\AceAddon-3.0\AceAddon-3.0.xml
@@ -13,7 +12,6 @@ Libs\AceDB-3.0\AceDB-3.0.xml
 Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
 Libs\AceGUI-3.0\AceGUI-3.0.xml
 Libs\AceConfig-3.0\AceConfig-3.0.xml
-#@end-no-lib-strip@
 
 core.lua
 dic.lua
