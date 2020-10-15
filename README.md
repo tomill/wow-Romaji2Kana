@@ -22,6 +22,10 @@ This addon is for Japanese chat messaging. Show Hiragana text from Romaji.
 
 Changes:
 
+1.9.0
+
+- update for 9.0.x, Shadowlands
+
 1.8.0
 
 - update for 8.0.x
