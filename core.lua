@@ -32,10 +32,10 @@ function addon:OnInitialize()
             get = getter,
         }
     end
-    
+
     self.enabled = true
     self.db = LibStub("AceDB-3.0"):New("Romaji2KanaDB", defaults)
-    
+
     LibStub("AceConfig-3.0"):RegisterOptionsTable(self.name, options)
     LibStub("AceConfigDialog-3.0"):AddToBlizOptions(self.name)
 end
@@ -74,7 +74,7 @@ local kanamap = {
     ["sya"] = "しゃ",   ["syo"] = "しょ",   ["syu"] = "しゅ",
     ["tsu"] = "つ",
     ["tya"] = "ちゃ",   ["tyo"] = "ちょ",   ["tyu"] = "ちゅ",
-    
+
     ["ba"] = "ば",  ["be"] = "べ",  ["bi"] = "び",  ["bo"] = "ぼ",  ["bu"] = "ぶ",
     ["da"] = "だ",  ["de"] = "で",  ["di"] = "でぃ",    ["do"] = "ど",  ["du"] = "どぅ",
     ["fu"] = "ふ",
@@ -91,7 +91,7 @@ local kanamap = {
     ["wa"] = "わ",  ["wo"] = "を",
     ["ya"] = "や",  ["yo"] = "よ",  ["yu"] = "ゆ",
     ["za"] = "ざ",  ["ze"] = "ぜ",  ["zi"] = "じ",  ["zo"] = "ぞ",  ["zu"] = "ず",
-    
+
     ["a"] = "あ",   ["e"] = "え",   ["i"] = "い",   ["o"] = "お",   ["u"] = "う",
 }
 
@@ -142,7 +142,7 @@ local function convertMessage(msg)
     if not string.find(msg, "^[%a%d%s%p]+$") then
         return msg -- already includes non ascii. maybe kana. just skip
     end
-    
+
     local res
     local count = { ["word"] = 0, ["kana"] = 0 }
     for word in string.gmatch(msg, "%S+") do
@@ -159,7 +159,7 @@ local function convertMessage(msg)
             res = kana
         end
     end
-    
+
     if count.kana == 0 then
         return msg -- something failed
     elseif ( count.kana / count.word ) <= 0.2 then
