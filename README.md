@@ -1,16 +1,10 @@
 # Warcraft Addon: Romaji Translator
 
-Translate chat message: Japanese Romaji to Hiragana
+This add-on is for assisting Japanese chatting using Romaji typing. It displays the Hiragana version of the received Romaji messages in brackets automatically.
 
-* https://wow.curseforge.com/projects/romaji2kana
+![](images/romaji1.png)
 
----
-
-This addon is for Japanese chat messaging. Show Hiragana text from Romaji.
-
-    [Tomill] konnichiwa
-      to
-    [Tomill] konnichiwa (こんにちわ)
+[Nihongo setumei page（日本語の説明ページ）](http://wp.me/pRxTt-1aK)
 
 - Requires Unicode font.
 - This addon don't touch outgoing message.
@@ -18,4 +12,3 @@ This addon is for Japanese chat messaging. Show Hiragana text from Romaji.
 - Type `/romakana off` command to temporary disable this addon.
 - Type `/romakana on` to enable again.
 
-[Nihongo setumei page（日本語の説明ページ）](http://wp.me/pRxTt-1aK)
