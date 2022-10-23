@@ -1,3 +1,5 @@
 .*
-!.gitkeep
-*.zip
+!.github
+!.gitignore
+!.luacheckrc
+!.pkgmeta
