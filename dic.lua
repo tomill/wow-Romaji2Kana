@@ -1,4 +1,3 @@
-
 -- freq words and looks like romaji
 ROMAJI2KANA_STOPWORDS = {
     ["aadara"] = 1,

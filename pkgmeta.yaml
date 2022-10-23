@@ -1,7 +1,0 @@
-package-as: Romaji2Kana
-
-enable-nolib-creation: no
-
-ignore:
-- README.md
-- images
