@@ -1,6 +1,6 @@
 ## Interface: 110002
 ## Interface-Cata: 40400
-## Interface-Vanilla: 11503
+## Interface-Vanilla: 11504
 ## Version: @project-version@
 ## Title: Romaji Translator
 ## Notes: Translate chat message: Japanese Romaji to Hiragana
