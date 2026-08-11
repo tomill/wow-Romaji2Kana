@@ -1,6 +1,6 @@
-## Interface: 120007
+## Interface: 120100
 ## Interface-Cata: 40402
-## Interface-Vanilla: 11508
+## Interface-Vanilla: 11509
 ## IconTexture: Interface\Icons\Inv_misc_notescript2e
 ## Version: @project-version@
 ## Title: Romaji Translator
